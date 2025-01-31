@@ -7,3 +7,12 @@ pipeline:
     module: pypeline.steps.scoop_install
   - step: MyStep
     file: steps/my_step.py
+  - step: CMakeConfigure
+    description: Run CMake configure to generate the Ninja build system files
+    run: [cmake, -B, build, -G, Ninja]
+  - step: CMakeBuild
+    description: Build the project
+    run: [cmake, --build, build]
+  - step: CMakeTest
+    description: Run the tests
+    run: [ctest, --test-dir, build]
